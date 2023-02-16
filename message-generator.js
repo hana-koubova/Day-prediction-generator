@@ -1,8 +1,6 @@
 // A day predictor program
 
-const positiveOrNegative = ["positive", "negative"];
-
-
+// The choice of wrods
 
 const dayAdjectivePos = ["great", "shiny", "the best day of your life"];
 const dayAdjectiveNeg = ["shitty", "terrible", "the worst day of your life"];
@@ -13,7 +11,7 @@ const randomNounNeg = ["spit in your face", "mud and rain", "unexpected bills"];
 const dayChangePos = ["even better", "super social", "warmer and happier"];
 const dayChangeNeg = ["even worse", "dark and cold", "very lonely"];
 
-const personGeneral = ["boss", "mom", "closest friend", "crush", "colleague"];
+const personGeneral = ["boss", "mom", "crush"];
 
 const personActionPos = ["hug you and sing a song for you", "give you some extra money just because you are so awesome", "take you out for lunch"];
 const personActionNeg = ["slap you", "shout at you for being so terribel person", "complain to you all day and you will have to listen"];
@@ -33,30 +31,41 @@ const negativeDay = [dayAdjectiveNeg, randomNounNeg, dayChangeNeg, personGeneral
 
 // What day is it - negative or positive?
 
-const whatDay = () => {
-    let day
-    let number = Math.floor(Math.random() * 2);
+const isDayPositive = () => {
+    let num = Math.floor(Math.random() * 2);
+    //console.log(number);
     if (num === 0 ) {
-        day = "negative"
-    } else {
-        day = "positive"
-    }
-    return day
-}
-
-const yourDayPrognose = (func) => {
-    if (func = "positive") {
-        return true;
-    } else {
         return false;
+    } else {
+        return true;
     }
-}
+};
 
-console.log(yourDayPrognose(whatDay));
+//Random Number Generator to create array of 8 numbers (to fillthe gaps in the final text)
 
-//console.log("This day will be " + dayAdjective + ".");
-//console.log("Be ready for some " + randomNoun + ".");
-//console.log("Once you get through noon, it will get " + dayChange + ".");
-//console.log("Your " + person + " will probably " + personAction + ".");
-//console.log(doThis + " tonight, otherwise you will " + eveningPrognose + ".");
-//console.log("Good luck, " + nickname + ".");
+const randomNumGenerator = () => {
+    const randomNumbers = [];
+    for (let i = 0; i < 8; i++) {
+        let number = Math.floor(Math.random() * 3);
+        randomNumbers.push(number);
+    }
+    return randomNumbers
+};
+
+//Final Day predictor generator
+
+const dayPrognoseGenerator = (func1, func2) => {
+    let arrayOfWords = func2();
+    //console.log(arrayOfWords);
+    
+    if (func1 == true) {
+        return `This day will be ${positiveDay[0][arrayOfWords[0]]}. Be ready for some ${positiveDay[1][arrayOfWords[1]]}. Once you get through noon, \n it will get ${positiveDay[2][arrayOfWords[2]]}. Your ${positiveDay[3][arrayOfWords[3]]} will probably ${positiveDay[4][arrayOfWords[4]]}.\n ${positiveDay[5][arrayOfWords[5]]} tonight, otherwise you will ${positiveDay[6][arrayOfWords[6]]}.\n Good luck, ${positiveDay[7][arrayOfWords[7]]}!`;
+    } else if (func1 == false) {
+        return `This day will be ${negativeDay[0][arrayOfWords[0]]}. Be ready for some ${negativeDay[1][arrayOfWords[1]]}. Once you get through noon, \n it will get ${negativeDay[2][arrayOfWords[2]]}. Your ${negativeDay[3][arrayOfWords[3]]} will probably ${negativeDay[4][arrayOfWords[4]]}.\n ${negativeDay[5][arrayOfWords[5]]} tonight, otherwise you will ${negativeDay[6][arrayOfWords[6]]}.\n Good luck, ${negativeDay[7][arrayOfWords[7]]}!`;
+    }
+
+};
+
+//Running the function
+
+console.log(dayPrognoseGenerator(isDayPositive(), randomNumGenerator));
